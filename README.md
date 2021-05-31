@@ -69,11 +69,11 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
         ->setTimetamp(null);
 
         if ($type == 'MARKET') {
-            $this->api->unsetParam('price');
+            $api->unsetParam('price');
         }
 
         try {
-            return $this->api->exec();
+            return $api->exec();
         } catch(Exception $e) {
             // dd($api->getResponse()->body());
             return false;
