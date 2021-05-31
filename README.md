@@ -38,4 +38,47 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 - More API please read Binance document <https://binance-docs.github.io/apidocs/spot/en/#general-info>
 
+### Create coin order example
+```code
+    /**
+     * symbol is pair for trade example BTCUSDT
+     * price for buy or sell
+     * quantity want to buy or sell
+     * Side variable is BUY or SELL
+     *
+     * Type	Additional mandatory parameters
+     *   LIMIT	timeInForce, quantity, price
+     *   MARKET	quantity or quoteOrderQty
+     *   STOP_LOSS	quantity, stopPrice
+     *   STOP_LOSS_LIMIT	timeInForce, quantity, price, stopPrice
+     *   TAKE_PROFIT	quantity, stopPrice
+     *   TAKE_PROFIT_LIMIT	timeInForce, quantity, price, stopPrice
+     *   LIMIT_MAKER	quantity, price
+     */
+    public function order($symbol, $price, $quantity, $side = self::TRADE_TYPE_BUY, $type = 'MARKET')
+    {
+        $api = new \App\Utils\BinanceApi\FetchApi;
+        $api->setMethod('post')
+        ->setUrl('/api/v3/order')
+        ->clearParams()
+        ->setParams('symbol', $symbol)
+        ->setParams('type', strtoupper($type))
+        ->setParams('side', strtoupper($side))
+        ->setParams('price', $price)
+        ->setParams('quantity', $quantity)
+        ->setTimetamp(null);
+
+        if ($type == 'MARKET') {
+            $this->api->unsetParam('price');
+        }
+
+        try {
+            return $this->api->exec();
+        } catch(Exception $e) {
+            // dd($api->getResponse()->body());
+            return false;
+        }
+    }
+```
+
 # Thanks and good luck for trade
