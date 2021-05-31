@@ -36,4 +36,6 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 - Read file `./app/utils/binanceapi/fetchapi.php` to know and extends
 
+- More API please read Binance document <https://binance-docs.github.io/apidocs/spot/en/#general-info>
+
 # Thanks and good luck for trade
